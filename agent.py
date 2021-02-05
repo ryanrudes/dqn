@@ -2,6 +2,7 @@ from tensorflow.keras.losses import *
 from tensorflow.keras.optimizers import *
 
 from replay_memory import ReplayMemory
+from environment import num_actions
 from model import make
 from config import *
 
