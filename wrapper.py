@@ -1,4 +1,5 @@
 from collections import deque
+import numpy as np
 
 class FrameStack:
     def __init__(self, env):
