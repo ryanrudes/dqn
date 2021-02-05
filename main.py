@@ -23,11 +23,8 @@ consoleHandler = logging.StreamHandler()
 consoleHandler.setFormatter(formatter)
 rootLogger.addHandler(consoleHandler)
 
-env = gym.make("BreakoutDeterministic-v4")
-env = FrameStack(env)
 logging.info("Started environment")
 
-num_actions = env.action_space.n
 frame = 0
 episode = 0
 highscore = -np.inf
