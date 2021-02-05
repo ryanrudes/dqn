@@ -1,7 +1,8 @@
 from utils import *
 from agent import *
 from config import *
-from wrapper import FrameStack
+from environment import *
+logging.info("Started environment")
 
 import tensorflow as tf
 import numpy as np
@@ -22,8 +23,6 @@ rootLogger = logging.getLogger()
 consoleHandler = logging.StreamHandler()
 consoleHandler.setFormatter(formatter)
 rootLogger.addHandler(consoleHandler)
-
-logging.info("Started environment")
 
 frame = 0
 episode = 0
