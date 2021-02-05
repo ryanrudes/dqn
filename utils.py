@@ -8,7 +8,7 @@ def epsilon_random(epsilon, state, num_actions):
         q = model.predict(np.expand_dims(state, axis = 0))[0]
         return np.argmax(q)
         
-def update(memory, minibatch_size, model, target, optimizer, lossfn):
+def update(memory, minibatch_size, gamma, model, target, optimizer, lossfn):
     states, actions, next_states, rewards, terminals = memory.sample(minibatch_size)
     pred_values = np.max(target(next_states), axis = 1)
     real_values = np.where(terminals, rewards, rewards + gamma * pred_values)
