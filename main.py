@@ -43,8 +43,6 @@ while frame < total_frames:
         next_state, reward, terminal, info = env.step(action)
         memory.store((state, action, next_state, reward, terminal))
         loss = update(model, target, optimizer, lossfn)
-        if render:
-          env.render()
         frame += 4
         updates += 1
         accumulated_reward += reward
@@ -59,6 +57,8 @@ while frame < total_frames:
             break
         else:
             state = next_state
+            if render:
+                env.render()
 
     episode += 1
     highscore = max(highscore, accumulated_reward)
