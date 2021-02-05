@@ -6,7 +6,6 @@ from model import make
 from wrapper import FrameStack
 
 from replay_memory import ReplayMemory
-from queue import deque
 import tensorflow as tf
 import numpy as np
 import logging
