@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 config = os.environ
 
+env_id = config["ENV_ID"]
 max_steps_per_episode = int(config["MAX_STEPS_PER_EPISODE"])
 max_replay_memory = int(config["MAX_REPLAY_MEMORY"])
 minibatch_size = int(config["MINIBATCH_SIZE"])
