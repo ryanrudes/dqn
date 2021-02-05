@@ -18,7 +18,7 @@ start = time.time()
 logging.basicConfig(level    = logging.DEBUG,
                     format   = '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                     datefmt  = '%m-%d %H:%M',
-                    filename = f'logs/{start}.log',
+                    filename = f'./logs/{start}.log',
                     filemode = 'w')
 formatter = logging.Formatter('%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
 rootLogger = logging.getLogger()
@@ -82,7 +82,7 @@ while frame < total_frames:
         if frame % update_target_frequency == 0:
             target.set_weights(model.get_weights())
             logging.info("Updated the target network")
-            model.save_weights(f'model/{env.spec.id}-{start}.h5')
+            model.save_weights(f'./model/{env.spec.id}-{start}.h5')
             logging.info("Saved model weights")
         if terminal:
             break
