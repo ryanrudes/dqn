@@ -1,6 +1,8 @@
 import numpy as np
-from config import *
 import tensorflow as tf
+
+from environment import *
+from config import *
 
 def epsilon_random(epsilon, state):
     if np.random.random() < epsilon:
@@ -9,7 +11,7 @@ def epsilon_random(epsilon, state):
         q = model.predict(np.expand_dims(state, axis = 0))[0]
         return np.argmax(q)
         
-def update(memory, num_actions, model, target, optimizer, lossfn):
+def update(model, target, optimizer, lossfn):
     states, actions, next_states, rewards, terminals = memory.sample(minibatch_size)
     pred_values = np.max(target(next_states), axis = 1)
     real_values = np.where(terminals, rewards, rewards + gamma * pred_values)
