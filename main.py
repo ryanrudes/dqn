@@ -34,7 +34,7 @@ total_frames = epsilon_random_frames + epsilon_greedy_frames
 epsilon_decay = (max_epsilon - min_epsilon) / epsilon_greedy_frames
 
 start = time.time()
-while frame < total_frames:
+while True:
     state = env.reset()
     terminal = False
     accumulated_reward = 0
@@ -46,7 +46,7 @@ while frame < total_frames:
         frame += 4
         updates += 1
         accumulated_reward += reward
-        if updates > epsilon_random_frames:
+        if frame > epsilon_random_frames:
             epsilon = max(min_epsilon, epsilon - epsilon_decay)
         if updates % update_target_frequency == 0:
             target.set_weights(model.get_weights())
@@ -62,7 +62,7 @@ while frame < total_frames:
 
     episode += 1
     highscore = max(highscore, accumulated_reward)
-    remaining = (time.time() - start) / frame * max(0, epsilon_greedy_frames - frame)
+    remaining = (time.time() - start) / frame * max(0, total_frames - frame)
     logging.info("Reached terminal state in episode %d" % episode)
     logging.info("Frames: %d" % frame)
     logging.info("Updates: %d" % updates)
@@ -70,4 +70,4 @@ while frame < total_frames:
     logging.info("High score: %d" % highscore)
     logging.info("Loss: %.6f" % loss)
     logging.info("Epsilon: %.6f" % epsilon)
-    logging.info("Time remaining: %s" % datetime.timedelta(seconds = remaining))
+    logging.info("Exploration duration remaining: %s" % datetime.timedelta(seconds = remaining))
