@@ -59,8 +59,8 @@ learning_rate = float(params["LEARNING_RATE"])
 clipnorm = float(params["CLIPNORM"])
 
 memory = ReplayMemory(max_replay_memory)
-model = make()
-target = make()
+model = make(num_actions)
+target = make(num_actions)
 target.set_weights(model.get_weights())
 
 optimizer = Adam(learning_rate, clipnorm = clipnorm)
