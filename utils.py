@@ -3,6 +3,7 @@ import tensorflow as tf
 
 from environment import *
 from config import *
+from agent import *
 
 def epsilon_random(epsilon, state):
     if np.random.random() < epsilon:
