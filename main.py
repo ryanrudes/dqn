@@ -1,6 +1,10 @@
 from tensorflow.keras.losses import *
 from tensorflow.keras.optimizers import *
 
+from utils import *
+from model import make
+from wrapper import FrameStack
+
 from replay_memory import ReplayMemory
 from queue import deque
 import tensorflow as tf
