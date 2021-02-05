@@ -1,7 +1,7 @@
 import gym
-from config import *
+from config import env_id
 from wrapper import FrameStack
 
-env = gym.make(ENV_ID)
+env = gym.make(env_id)
 env = FrameStack(env)
 num_actions = env.action_space.n
