@@ -28,6 +28,7 @@ frame = 0
 episode = 0
 highscore = -np.inf
 loss = 0
+updates = 0
 max_epsilon = epsilon
 total_frames = epsilon_random_frames + epsilon_greedy_frames
 epsilon_decay = (max_epsilon - min_epsilon) / epsilon_greedy_frames
@@ -40,15 +41,16 @@ while frame < total_frames:
     for t in range(max_steps_per_episode):
         action = epsilon_random(epsilon, state)
         next_state, reward, terminal, info = env.step(action)
-        if render:
-          env.render()
-        frame += 1
-        accumulated_reward += reward
         memory.store((state, action, next_state, reward, terminal))
         loss = update(model, target, optimizer, lossfn)
-        if frame > epsilon_random_frames:
+        if render:
+          env.render()
+        frame += 4
+        updates += 1
+        accumulated_reward += reward
+        if updates > epsilon_random_frames:
             epsilon = max(min_epsilon, epsilon - epsilon_decay)
-        if frame % update_target_frequency == 0:
+        if updates % update_target_frequency == 0:
             target.set_weights(model.get_weights())
             logging.info("Updated the target network")
             model.save_weights(f'model/{env.spec.id}-{start}.h5')
@@ -63,6 +65,7 @@ while frame < total_frames:
     remaining = (time.time() - start) / frame * max(0, epsilon_greedy_frames - frame)
     logging.info("Reached terminal state in episode %d" % episode)
     logging.info("Frames: %d" % frame)
+    logging.info("Updates: %d" % updates)
     logging.info("Reward: %d" % accumulated_reward)
     logging.info("High score: %d" % highscore)
     logging.info("Loss: %.6f" % loss)
