@@ -1,0 +1,4 @@
+gym==0.18.0
+numpy==1.18.5
+mahotas==1.4.11
+python-dotenv==0.15.0
