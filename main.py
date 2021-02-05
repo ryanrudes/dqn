@@ -47,7 +47,7 @@ while True:
         updates += 1
         accumulated_reward += reward
         if frame > epsilon_random_frames:
-            epsilon = max(min_epsilon, epsilon - epsilon_decay)
+            epsilon = max(min_epsilon, epsilon - epsilon_decay * 4)
         if updates % update_target_frequency == 0:
             target.set_weights(model.get_weights())
             logging.info("Updated the target network")
