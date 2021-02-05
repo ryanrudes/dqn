@@ -1,3 +1,5 @@
+from collections import deque
+
 class FrameStack:
     def __init__(self, env):
         self.env = env
