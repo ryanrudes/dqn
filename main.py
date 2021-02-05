@@ -27,27 +27,29 @@ env = gym.make("BreakoutDeterministic-v4")
 env = FrameStack(env)
 logging.info("Started environment")
 
-max_steps_per_episode = 10000
-max_replay_memory = 100000
+params = os.environ
+
+max_steps_per_episode = params["MAX_STEPS_PER_EPISODE"]
+max_replay_memory = params["MAX_REPLAY_MEMORY"]
 num_actions = env.action_space.n
-minibatch_size = 32
-gamma = 0.99
-update_target_frequency = 10000
+minibatch_size = params["MINIBATCH_SIZE"]
+gamma = params["GAMMA"]
+update_target_frequency = params["UPDATE_TARGET_FREQUENCY"]
 frame = 0
 episode = 0
 highscore = -np.inf
 loss = 0
 
-epsilon = 1.0
+epsilon = params["EPSILON"]
 max_epsilon = epsilon
-epsilon_random_frames = 50000
-epsilon_greedy_frames = 1000000
+epsilon_random_frames = params["EPSILON_RANDOM_FRAMES"]
+epsilon_greedy_frames = params["EPSILON_GREEDY_FRAMES"]
 total_frames = epsilon_random_frames + epsilon_greedy_frames
-min_epsilon = 0.1
+min_epsilon = params["MIN_EPSILON"]
 epsilon_decay = (max_epsilon - min_epsilon) / epsilon_greedy_frames
 
-learning_rate = 0.00025
-clipnorm = 1.0
+learning_rate = params["LEARNING_RATE"]
+clipnorm = params["CLIPNORM"]
 
 memory = ReplayMemory(max_replay_memory)
 model = make()
