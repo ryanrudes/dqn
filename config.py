@@ -1,6 +1,8 @@
 import os
+from dotenv import load_dotenv
 
-config = os.getenv
+load_dotenv()
+config = os.environ
 
 max_steps_per_episode = int(config["MAX_STEPS_PER_EPISODE"])
 max_replay_memory = int(config["MAX_REPLAY_MEMORY"])
