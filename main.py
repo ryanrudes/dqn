@@ -38,14 +38,14 @@ while frame < total_frames:
     terminal = False
     accumulated_reward = 0
     for t in range(max_steps_per_episode):
-        action = epsilon_random(epsilon, state, num_actions)
+        action = epsilon_random(epsilon, state)
         next_state, reward, terminal, info = env.step(action)
         if render:
           env.render()
         frame += 1
         accumulated_reward += reward
         memory.store((state, action, next_state, reward, terminal))
-        loss = update(memory, minibatch_size, gamma, model, target, optimizer, lossfn)
+        loss = update(model, target, optimizer, lossfn)
         if frame > epsilon_random_frames:
             epsilon = max(min_epsilon, epsilon - epsilon_decay)
         if frame % update_target_frequency == 0:
