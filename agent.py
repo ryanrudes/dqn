@@ -1,3 +1,6 @@
+from tensorflow.keras.losses import *
+from tensorflow.keras.optimizers import *
+
 memory = ReplayMemory(max_replay_memory)
 model = make(num_actions)
 target = make(num_actions)
