@@ -36,27 +36,27 @@ logging.info("Started environment")
 
 params = os.environ
 
-max_steps_per_episode = params["MAX_STEPS_PER_EPISODE"]
-max_replay_memory = params["MAX_REPLAY_MEMORY"]
+max_steps_per_episode = int(params["MAX_STEPS_PER_EPISODE"])
+max_replay_memory = int(params["MAX_REPLAY_MEMORY"])
 num_actions = env.action_space.n
-minibatch_size = params["MINIBATCH_SIZE"]
-gamma = params["GAMMA"]
-update_target_frequency = params["UPDATE_TARGET_FREQUENCY"]
+minibatch_size = int(params["MINIBATCH_SIZE"])
+gamma = float(params["GAMMA"])
+update_target_frequency = int(params["UPDATE_TARGET_FREQUENCY"])
 frame = 0
 episode = 0
 highscore = -np.inf
 loss = 0
 
-epsilon = params["EPSILON"]
+epsilon = float(params["EPSILON"])
 max_epsilon = epsilon
-epsilon_random_frames = params["EPSILON_RANDOM_FRAMES"]
-epsilon_greedy_frames = params["EPSILON_GREEDY_FRAMES"]
+epsilon_random_frames = int(params["EPSILON_RANDOM_FRAMES"])
+epsilon_greedy_frames = int(params["EPSILON_GREEDY_FRAMES"])
 total_frames = epsilon_random_frames + epsilon_greedy_frames
-min_epsilon = params["MIN_EPSILON"]
+min_epsilon = float(params["MIN_EPSILON"])
 epsilon_decay = (max_epsilon - min_epsilon) / epsilon_greedy_frames
 
-learning_rate = params["LEARNING_RATE"]
-clipnorm = params["CLIPNORM"]
+learning_rate = float(params["LEARNING_RATE"])
+clipnorm = float(params["CLIPNORM"])
 
 memory = ReplayMemory(max_replay_memory)
 model = make()
