@@ -1,5 +1,5 @@
 import gym
-from config import ENV_ID
+from config import *
 from wrapper import FrameStack
 
 env = gym.make(ENV_ID)
