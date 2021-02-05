@@ -81,7 +81,7 @@ while frame < total_frames:
         frame += 1
         accumulated_reward += reward
         memory.store((state, action, next_state, reward, terminal))
-        loss = update(memory, minibatch_size, model, target, optimizer, lossfn)
+        loss = update(memory, minibatch_size, gamma, model, target, optimizer, lossfn)
         if frame > epsilon_random_frames:
             epsilon = max(min_epsilon, epsilon - epsilon_decay)
         if frame % update_target_frequency == 0:
