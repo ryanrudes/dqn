@@ -6,6 +6,7 @@ from model import make
 from wrapper import FrameStack
 
 from replay_memory import ReplayMemory
+from dotenv import load_dotenv
 import tensorflow as tf
 import numpy as np
 import logging
@@ -14,6 +15,8 @@ import datetime
 import time
 import gym
 import os
+
+load_dotenv()
 
 start = time.time()
 logging.basicConfig(level    = logging.DEBUG,
