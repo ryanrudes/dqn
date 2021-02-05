@@ -2,11 +2,11 @@ from tensorflow.keras.losses import *
 from tensorflow.keras.optimizers import *
 
 from utils import *
+from config import *
 from model import make
 from wrapper import FrameStack
 
 from replay_memory import ReplayMemory
-from dotenv import load_dotenv
 import tensorflow as tf
 import numpy as np
 import logging
@@ -14,9 +14,6 @@ import mahotas
 import datetime
 import time
 import gym
-import os
-
-load_dotenv()
 
 start = time.time()
 logging.basicConfig(level    = logging.DEBUG,
@@ -34,31 +31,14 @@ env = gym.make("BreakoutDeterministic-v4")
 env = FrameStack(env)
 logging.info("Started environment")
 
-params = os.environ
-
-max_steps_per_episode = int(params["MAX_STEPS_PER_EPISODE"])
-max_replay_memory = int(params["MAX_REPLAY_MEMORY"])
 num_actions = env.action_space.n
-minibatch_size = int(params["MINIBATCH_SIZE"])
-gamma = float(params["GAMMA"])
-update_target_frequency = int(params["UPDATE_TARGET_FREQUENCY"])
 frame = 0
 episode = 0
 highscore = -np.inf
 loss = 0
-
-epsilon = float(params["EPSILON"])
 max_epsilon = epsilon
-epsilon_random_frames = int(params["EPSILON_RANDOM_FRAMES"])
-epsilon_greedy_frames = int(params["EPSILON_GREEDY_FRAMES"])
 total_frames = epsilon_random_frames + epsilon_greedy_frames
-min_epsilon = float(params["MIN_EPSILON"])
 epsilon_decay = (max_epsilon - min_epsilon) / epsilon_greedy_frames
-
-learning_rate = float(params["LEARNING_RATE"])
-clipnorm = float(params["CLIPNORM"])
-
-render = bool(params["RENDER"])
 
 memory = ReplayMemory(max_replay_memory)
 model = make(num_actions)
