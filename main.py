@@ -1,9 +1,3 @@
-from utils import *
-from agent import *
-from config import *
-from environment import *
-logging.info("Started environment")
-
 import tensorflow as tf
 import numpy as np
 import logging
@@ -23,6 +17,12 @@ rootLogger = logging.getLogger()
 consoleHandler = logging.StreamHandler()
 consoleHandler.setFormatter(formatter)
 rootLogger.addHandler(consoleHandler)
+
+from utils import *
+from agent import *
+from config import *
+from environment import *
+logging.info("Started environment")
 
 frame = 0
 episode = 0
