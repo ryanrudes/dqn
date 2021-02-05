@@ -1,7 +1,6 @@
 from utils import *
 from agent import *
 from config import *
-from model import make
 from wrapper import FrameStack
 
 import tensorflow as tf
