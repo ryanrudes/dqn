@@ -40,14 +40,6 @@ max_epsilon = epsilon
 total_frames = epsilon_random_frames + epsilon_greedy_frames
 epsilon_decay = (max_epsilon - min_epsilon) / epsilon_greedy_frames
 
-memory = ReplayMemory(max_replay_memory)
-model = make(num_actions)
-target = make(num_actions)
-target.set_weights(model.get_weights())
-
-optimizer = Adam(learning_rate, clipnorm = clipnorm)
-lossfn = Huber()
-
 start = time.time()
 while frame < total_frames:
     state = env.reset()
