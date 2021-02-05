@@ -58,6 +58,8 @@ epsilon_decay = (max_epsilon - min_epsilon) / epsilon_greedy_frames
 learning_rate = float(params["LEARNING_RATE"])
 clipnorm = float(params["CLIPNORM"])
 
+render = bool(params["RENDER"])
+
 memory = ReplayMemory(max_replay_memory)
 model = make(num_actions)
 target = make(num_actions)
@@ -72,17 +74,16 @@ while frame < total_frames:
     terminal = False
     accumulated_reward = 0
     for t in range(max_steps_per_episode):
-        action = epsilon_random(epsilon, state)
+        action = epsilon_random(epsilon, state, num_actions)
         next_state, reward, terminal, info = env.step(action)
-        # env.render()
+        if render:
+          env.render()
         frame += 1
         accumulated_reward += reward
         memory.store((state, action, next_state, reward, terminal))
-        state = next_state
+        loss = update(memory, minibatch_size, model, target, optimizer, lossfn)
         if frame > epsilon_random_frames:
             epsilon = max(min_epsilon, epsilon - epsilon_decay)
-        if frame % 32 == 0:
-            loss = update(memory, minibatch_size, model, target)
         if frame % update_target_frequency == 0:
             target.set_weights(model.get_weights())
             logging.info("Updated the target network")
@@ -90,6 +91,8 @@ while frame < total_frames:
             logging.info("Saved model weights")
         if terminal:
             break
+        else:
+            state = next_state
 
     episode += 1
     highscore = max(highscore, accumulated_reward)
