@@ -1,2 +1,2 @@
-# dqn
+# DQN
 A standard DQN implementation
