@@ -18,4 +18,4 @@ learning_rate = float(config["LEARNING_RATE"])
 clipnorm = float(config["CLIPNORM"])
 seed = int(config["SEED"])
 render = int(config["RENDER"])
-lossfn = config["LOSS"]
+lossfnname = config["LOSS"]
