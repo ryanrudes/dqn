@@ -1,4 +1,4 @@
-from tensorflow.keras.losses import *
+import tensorflow.keras.losses
 from tensorflow.keras.optimizers import *
 
 from replay_memory import ReplayMemory
@@ -12,4 +12,4 @@ target = make(num_actions)
 target.set_weights(model.get_weights())
 
 optimizer = Adam(learning_rate, clipnorm = clipnorm)
-lossfn = Huber()
+lossfn = tensorflow.keras.losses.__getattr__(lossfnname)
