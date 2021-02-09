@@ -12,4 +12,4 @@ target = make(num_actions)
 target.set_weights(model.get_weights())
 
 optimizer = Adam(learning_rate, clipnorm = clipnorm)
-lossfn = tensorflow.keras.losses.__getattr__(lossfnname)
+lossfn = Huber()
