@@ -10,7 +10,7 @@ class FrameStack(Wrapper):
 
     def reset(self):
         for i in range(3):
-            self._obs_buffer.append(np.zeros((84, 84, 1)))
+            self._obs_buffer.append(np.zeros((84, 84)))
         self._obs_buffer.append(self.preprocess(self.env.reset()))
         return self.observe()
 
@@ -20,8 +20,8 @@ class FrameStack(Wrapper):
         # out of the frame in Breakout, making it impossible to converge. For all other environments, you should uncomment
         # the line below to use the standard preprocessing algorithm, and comment out the alternative currently in use.
         
-        # return np.expand_dims(mahotas.imresize(mahotas.colors.rgb2grey(frame), (84, 110)), axis = -1)[:, 13:-13] / 255.0
-        return np.expand_dims(mahotas.imresize(mahotas.colors.rgb2grey(frame), (84, 84)), axis = -1) / 255.0
+        # return mahotas.imresize(mahotas.colors.rgb2grey(frame), (84, 110))[:, 13:-13] / 255.0
+        return mahotas.imresize(mahotas.colors.rgb2grey(frame), (84, 84)) / 255.0
     
     def observe(self):
         return np.stack(self._obs_buffer, axis = -1)
