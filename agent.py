@@ -1,4 +1,4 @@
-import tensorflow.keras.losses
+from tensorflow.keras.losses import *
 from tensorflow.keras.optimizers import *
 
 from replay_memory import ReplayMemory
