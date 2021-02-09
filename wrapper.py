@@ -1,13 +1,11 @@
 from collections import deque
+from gym import Wrapper
 import numpy as np
 import mahotas
 
-class FrameStack:
+class FrameStack(Wrapper):
     def __init__(self, env):
-        self.env = env
-        self.spec = env.spec
-        self.action_space = env.action_space
-        self.observation_space = env.observation_space
+        super(FrameStack, self).__init__(env)
         self._obs_buffer = deque(maxlen = 4)
 
     def reset(self):
@@ -39,9 +37,3 @@ class FrameStack:
                 break
 
         return self.observe(), total_reward, terminal, info
-    
-    def render(self, **kwargs):
-        self.env.render(**kwargs)
-
-    def close(self):
-        self.env.close()
