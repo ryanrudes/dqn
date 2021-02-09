@@ -26,7 +26,7 @@ class FrameStack:
         return np.expand_dims(mahotas.imresize(mahotas.colors.rgb2grey(frame), (84, 84)), axis = -1) / 255.0
     
     def observe(self):
-        return np.concatenate(self._obs_buffer, axis = -1)
+        return np.stack(self._obs_buffer, axis = -1)
 
     def step(self, action):
         total_reward = 0.0
